@@ -5,6 +5,7 @@ import React from 'react'
 import Logo from '@/public/shresus.png'
 import Image from 'next/image'
 import { signIn } from '../lib/auth'
+import { GoogleAuthButton, GithubAuthButton } from './SubmitButtons'
 
 
 export default function AuthModal() {
@@ -23,9 +24,15 @@ export default function AuthModal() {
             await signIn('google');
             
           }} className="w-full">
-            <Button className="w-full">Entrar com Google</Button>
+            <GoogleAuthButton />
           </form>
-          <Button>Entrar com Github</Button>
+          <form action={async () => {
+            "use server"
+            await signIn('github');
+            
+          }} className="w-full">
+            <GithubAuthButton />
+          </form>
         </div>
       </DialogContent>
     </Dialog>
