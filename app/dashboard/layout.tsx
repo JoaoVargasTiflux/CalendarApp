@@ -38,7 +38,7 @@ export default async function DashboardLayout({children}: {children: ReactNode})
           </div>
         </div>
         <div className='flex flex-col'>
-          <header className='flex h-14 items-center gap-4 border-b bg-muted px-4 lg:h-[60px] lg:px-6'>
+          <header className='flex h-14 items-center gap-4 border-b bg-muted px-4 lg:h-[60px] lg:px-6 bg-muted/40'>
             <Sheet>
               <SheetTrigger asChild>
                 <Button className='md:hidden shrink-0' size='icon' variant='outline'>
@@ -56,7 +56,7 @@ export default async function DashboardLayout({children}: {children: ReactNode})
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant='secondary' size='icon' className='rounded-full'>
-                    <img src={session?.user?.image as string} alt='User' width={20} height={20} className='w-full h-full rounded-full bg-background'/>
+                    <img src={session?.user?.image as string} alt='User' width={20} height={20} className='w-full h-full rounded-full bg-secondary'/>
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align='end'>
