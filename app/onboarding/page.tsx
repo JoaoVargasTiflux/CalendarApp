@@ -12,22 +12,24 @@ export default function OnboardingRoute() {
           <CardTitle>Welcome</CardTitle>
           <CardDescription>Hmmmm data nham nham</CardDescription>
         </CardHeader>
-        <CardContent className='flex flex-col gap-y-5'>
-          <div className='grid gap-y-2'>
-            <Label>Name</Label>
-            <Input placeholder='John'/>
-          </div>
-          <div className='grid gap-y-2'>
-            <Label>Username</Label>
-            <div className='flex rounded-md'>
-              <span className='inline-flex items-center px-3 rounded-l-md border border-r-0 border-muted bg-muted text-sm text-muted-foreground'>localhost:3000/</span>
-              <Input placeholder='example' className='rounded-l-none'/>
+        <form action="">
+          <CardContent className='flex flex-col gap-y-5'>
+            <div className='grid gap-y-2'>
+              <Label>Name</Label>
+              <Input placeholder='John'/>
             </div>
-          </div>
-        </CardContent>
-        <CardFooter>
-          <Button className='w-full'>Submit</Button>
-        </CardFooter>
+            <div className='grid gap-y-2'>
+              <Label>Username</Label>
+              <div className='flex rounded-md'>
+                <span className='inline-flex items-center px-3 rounded-l-md border border-r-0 border-muted bg-muted text-sm text-muted-foreground'>localhost:3000/</span>
+                <Input placeholder='example-user' className='rounded-l-none'/>
+              </div>
+            </div>
+          </CardContent>
+          <CardFooter>
+            <Button className='w-full'>Submit</Button>
+          </CardFooter>
+        </form>
       </Card>
     </div>
   )
