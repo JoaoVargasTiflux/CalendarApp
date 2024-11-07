@@ -13,9 +13,30 @@ import { Button } from '@/components/ui/button'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 import { requireUser } from '../lib/hooks'
+import prisma from '../lib/db'
+import { redirect } from 'next/navigation'
+
+async function getData(userId: string) {
+  const data = await prisma.user.findUnique({
+    where: {
+      id: userId
+    },
+    select:{
+      userName: true,
+    },
+  })
+
+  if (!data?.userName) {
+    return redirect("/onboarding")
+  }
+
+  return data
+}
 
 export default async function DashboardLayout({children}: {children: ReactNode}) {
   const session = await requireUser()
+
+  const data = await getData(session.user?.id as string)
 
   return (
     <>
