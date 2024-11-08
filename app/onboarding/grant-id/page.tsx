@@ -19,11 +19,11 @@ export default function OnboardingRouteTwo() {
           <CardDescription>
             Conectar calendario
           </CardDescription>
-          <Image src={VideoGif} alt="Quase gif" className="w-full rounded-lg" />
+          <Image unoptimized src={VideoGif} alt="Quase gif" className="w-full rounded-lg" />
         </CardHeader>
         <CardContent>
           <Button className="w-full p-0">
-            <Link href="/" className="w-full h-full flex justify-center items-center">
+            <Link href="/api/auth" className="w-full h-full flex justify-center items-center">
               <CalendarCheck2 className="size-4 mr-2" />
               Conncetar caledario
             </Link>
