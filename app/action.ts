@@ -55,11 +55,11 @@ export async function SettingsAction(previousState: any, formData: FormData) {
   const user = await prisma.user.update({
     where: {
       id: session?.user?.id,
-      data: {
-        name: submission.value.fullName ,
-        image: submission.value.profileImage,
-      },
-    }
+    },
+    data: {
+      name: submission.value.fullName ,
+      image: submission.value.profileImage,
+    },
   })
 
   return redirect('/dashboard')

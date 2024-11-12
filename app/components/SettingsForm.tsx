@@ -12,6 +12,8 @@ import { parseWithZod } from '@conform-to/zod'
 import { settingsSchema } from '../lib/zodSchemas'
 import { Button } from '@/components/ui/button'
 import { X } from 'lucide-react'
+import { UploadDropzone } from '../lib/uploadthing'
+import { toast } from 'sonner'
 
 interface iAppProps {
   fullName: string,
@@ -79,6 +81,11 @@ export function SettingsForm({email, fullName, profileImage}: iAppProps) {
             <Label>
               Image
             </Label>
+            <input 
+            type='hidden' 
+            name={fields.profileImage.name}
+            key={fields.profileImage.key}
+            value={currentProfileImage}/>
             {
               currentProfileImage
               ? (
@@ -99,9 +106,19 @@ export function SettingsForm({email, fullName, profileImage}: iAppProps) {
                 </div>
               )
               : (
-                <h1>No image</h1>
+                <UploadDropzone 
+                endpoint='imageUploader'
+                onClientUploadComplete={(res) => {
+                  setCurrentProfileImage(res[0].url)
+                  toast.success('Profile image uploaded')
+                }} 
+                onUploadError={(error) => {
+                  console.error('Error with profile picture upload', error)
+                  toast.error('Error with profile picture upload')
+                }}/>
               )
             }
+            <p className='text-red-500 text-sm'>{fields.profileImage.errors}</p>
           </div>
         </CardContent>
         <CardFooter>
