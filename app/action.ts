@@ -59,6 +59,47 @@ export async function SettingsAction(previousState: any, formData: FormData) {
     data: {
       name: submission.value.fullName ,
       image: submission.value.profileImage,
+      availability: {
+        createMany: {
+          data: [
+            {
+              day: 'Dom',
+              fromTime: '07:00',
+              tillTime: '17:00',
+            },
+            {
+              day: 'Seg',
+              fromTime: '07:00',
+              tillTime: '17:00',
+            },
+            {
+              day: 'Ter',
+              fromTime: '07:00',
+              tillTime: '17:00',
+            },
+            {
+              day: 'Qua',
+              fromTime: '07:00',
+              tillTime: '17:00',
+            },
+            {
+              day: 'Qui',
+              fromTime: '07:00',
+              tillTime: '17:00',
+            },
+            {
+              day: 'Sex',
+              fromTime: '07:00',
+              tillTime: '17:00',
+            },
+            {
+              day: 'Sab',
+              fromTime: '07:00',
+              tillTime: '17:00',
+            },
+          ]
+        }
+      }
     },
   })
 

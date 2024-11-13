@@ -19,6 +19,7 @@ model User {
   grantEmail    String?
   accounts      Account[]
   sessions      Session[]
+  availability  Availability[]
  
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -56,10 +57,33 @@ model Session {
 }
  
 model VerificationToken {
-  identifier String
-  token      String
-  expires    DateTime
+  identifier  String
+  token       String
+  expires     DateTime
  
   @@id([identifier, token])
 }
 
+model Availability {
+  id          String @id @default(uuid())
+  day         Day
+  fromTime    String
+  tillTime    String
+  isActive    Boolean @default(true)
+
+  createdAt   DateTime @default(now())
+  updatetAd   DateTime @default(now())
+
+  user        User? @relation(fields: [userId], references: [id])
+  userId      String?
+}
+
+enum Day {
+  Dom
+  Seg
+  Ter
+  Qua
+  Qui
+  Sex
+  Sab
+}
