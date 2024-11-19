@@ -26,7 +26,7 @@ export function ButtonGroup({className, children}: iAppProps) {
               'border-l-0': !isFirst,
             },
             child.props.className?.concat(' w-full')
-          )
+          ),
         })
       })}
     </div>
