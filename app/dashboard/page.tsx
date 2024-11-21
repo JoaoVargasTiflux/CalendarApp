@@ -2,6 +2,11 @@ import { notFound } from "next/navigation";
 import prisma from "../lib/db";
 import { requireUser } from "../lib/hooks";
 import EmptyState from "../components/EmptyState";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { ExternalLinkIcon, Link2Icon, PenIcon, SettingsIcon, TrashIcon, Users2 } from "lucide-react";
+import { Switch } from "@/components/ui/switch";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 
 async function getData(userId: string) {
   const data = await prisma.user.findUnique({
@@ -40,7 +45,84 @@ export default async function DashboardPage(){
           buttonText="Create Event Type"
           href="/dashboard/new"/>
         :
-          <p>events</p>
+          <>
+            <div className="flex items-center justify-between px-2">
+              <div className="hidden sm:grid gap-1">
+                <h1 className="text-3xl md:text-4xl font-semibold">Event Types</h1>
+                <p className="text-muted-foreground">Create and manage events</p>
+              </div>
+              <Button asChild>
+                <Link href='/dashboard/new'>
+                  Create new event
+                </Link>
+              </Button>
+            </div>
+            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {data.eventType.map((item) => (
+                <div 
+                key={item.id}
+                className="overflow-hidden shadow rounded-lg border relative">
+                  <div className="absolute top-2 right-2">
+                    <DropdownMenu>
+                      <DropdownMenuTrigger asChild>
+                        <Button variant='outline' size='icon'>
+                          <SettingsIcon className="size-4"/>
+                        </Button>
+                      </DropdownMenuTrigger>
+                      <DropdownMenuContent align="end">
+                        <DropdownMenuLabel>
+                          Event
+                        </DropdownMenuLabel>
+                        <DropdownMenuSeparator/>
+                        <DropdownMenuGroup>
+                          <DropdownMenuItem asChild>
+                            <Link href={`/${data.userName}/${item.url}`}>
+                              <ExternalLinkIcon className="mr-2 size-4" />
+                              Preview
+                            </Link>
+                          </DropdownMenuItem>
+                          <DropdownMenuItem>
+                            <Link2Icon className="mr-2 size-4"/>
+                            Copy
+                          </DropdownMenuItem>
+                          <DropdownMenuItem>
+                            <PenIcon className="mr-2 size-4"/>
+                            Edit
+                          </DropdownMenuItem>
+                        </DropdownMenuGroup>
+                        <DropdownMenuSeparator />
+                        <DropdownMenuItem>
+                          <TrashIcon className="mr-2 size-4"/>
+                          Delete
+                        </DropdownMenuItem>
+                      </DropdownMenuContent>
+                    </DropdownMenu>
+                  </div>
+                  <Link href='/' className="flex items-center p-5">
+                    <div className="flex-shrink-0">
+                      <Users2 className="size-6"/>
+                    </div>
+                    <div className="ml-5 w-0 flex-1">
+                      <dl>
+                        <dt className="text-sm font-medium text-muted-foreground">
+                          {item.duration} minutes Meting
+                        </dt>
+                        <dd className="text-lg font-medium">
+                          {item.title}
+                        </dd>
+                      </dl>
+                    </div>
+                  </Link>
+                  <div className="bg-muted/50 px-5 py-3 justify-between items-center flex">
+                    <Switch />
+                    <Button>
+                      Edit event
+                    </Button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </>
       }
     </>
   )
