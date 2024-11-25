@@ -5,6 +5,7 @@ import { CalendarProps, DateValue, useCalendar, useLocale } from 'react-aria'
 import { useCalendarState } from 'react-stately'
 import {createCalendar} from '@internationalized/date';
 import CalendarHeader from './CalendarHeader';
+import CalendarGrid from './CalendarGrid';
 
 export default function Calendar(props: CalendarProps<DateValue>) {
   const { locale } = useLocale()
@@ -34,6 +35,12 @@ export default function Calendar(props: CalendarProps<DateValue>) {
       prevButtonProps={prevButtonProps}
       nextButtonProps={nextButtonProps}
       />
+
+      <div className='flex gap-8'>
+        <CalendarGrid 
+        state={state}
+        />
+      </div>
     </div>
   )
 }
