@@ -9,7 +9,7 @@ import CalendarGrid from './CalendarGrid';
 
 export default function Calendar(props: CalendarProps<DateValue>) {
   const { locale } = useLocale()
-  let state = useCalendarState({
+  const state = useCalendarState({
     ...props,
     visibleDuration: {
       months: 1,
@@ -18,7 +18,7 @@ export default function Calendar(props: CalendarProps<DateValue>) {
     createCalendar
   });
 
-  let {
+  const {
     calendarProps,
     prevButtonProps,
     nextButtonProps,

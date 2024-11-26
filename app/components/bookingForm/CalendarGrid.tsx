@@ -37,13 +37,12 @@ export default function CalendarGrid({
       </tr>
     </thead>
     <tbody>
-      {[...new Array(weeksInMonth).keys()].map(
-        (weekIndex) => (
+      {[...new Array(weeksInMonth).keys()]
+        .map((weekIndex) => (
           <tr key={weekIndex}>
-            {state.getDatesInWeek(weekIndex).map((
-              date,
-              i
-            ) => (
+            {state
+            .getDatesInWeek(weekIndex, startDate)
+            .map((date, i) => (
               date
                 ? (
                   <CalendarCell
@@ -56,8 +55,8 @@ export default function CalendarGrid({
                 : <td key={i} />
             ))}
           </tr>
-        )
-      )}
+        ))
+      }
     </tbody>
   </table>
   )
