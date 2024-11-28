@@ -11,7 +11,7 @@ async function getData(eventUrl: string, userName: string) {
     where: {
       url: eventUrl,
       User: {
-        name: userName,
+        userName: userName,
       },
       active: true
     },
@@ -53,7 +53,7 @@ export default async function BookingFormRoute({
   return (
     <div className='min-h-screen w-screen flex items-center justify-center'>
       <Card className='max-w-[1000px] w-11/12 mx-auto'>
-        <CardContent className='p-5 md:grid md:grid-cols-[1fr,auto,1fr,auto,1fr]'>
+        <CardContent className='p-5 md:grid md:grid-cols-[1fr,auto,1fr,auto,1fr] gap-4'>
           <div>
             <img src={data.User?.image as string} alt='user profile' className='size-10 rounded-full' />
             <p className='text-sm font-medium text-muted-foreground mt-1'>
@@ -89,7 +89,7 @@ export default async function BookingFormRoute({
           </div>
           <Separator 
           orientation='vertical' />
-          <RenderCalendar />
+          <RenderCalendar availability={data.User?.availability as any} />
         </CardContent>
       </Card>
       

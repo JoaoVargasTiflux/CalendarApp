@@ -7,7 +7,9 @@ import {createCalendar} from '@internationalized/date';
 import CalendarHeader from './CalendarHeader';
 import CalendarGrid from './CalendarGrid';
 
-export default function Calendar(props: CalendarProps<DateValue>) {
+export default function Calendar(props: CalendarProps<DateValue> & {
+  isDateUnavailable?: (date: DateValue) => boolean
+}) {
   const { locale } = useLocale()
   const state = useCalendarState({
     ...props,
@@ -39,6 +41,7 @@ export default function Calendar(props: CalendarProps<DateValue>) {
       <div className='flex gap-8'>
         <CalendarGrid 
         state={state}
+        isDateUnavailable={props.isDateUnavailable}
         />
       </div>
     </div>
