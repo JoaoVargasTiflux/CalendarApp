@@ -67,6 +67,7 @@ model VerificationToken {
 
 model Availability {
   id       String  @id @default(uuid())
+  weekDay  Int
   day      Day
   fromTime String
   tillTime String

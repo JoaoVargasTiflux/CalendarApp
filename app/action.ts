@@ -36,7 +36,55 @@ export async function OnboardingAction(previousState: any, formData: FormData) {
     },
     data: {
       userName: submission.value.userName,
-      name: submission.value.fullName
+      name: submission.value.fullName,
+      availability: {
+        createMany: {
+          data: [
+            {
+              day: 'Dom',
+              fromTime: '07:00',
+              tillTime: '17:00',
+              weekDay: 0,
+            },
+            {
+              day: 'Seg',
+              fromTime: '07:00',
+              tillTime: '17:00',
+              weekDay: 1,
+            },
+            {
+              day: 'Ter',
+              fromTime: '07:00',
+              tillTime: '17:00',
+              weekDay: 2,
+            },
+            {
+              day: 'Qua',
+              fromTime: '07:00',
+              tillTime: '17:00',
+              weekDay: 3,
+            },
+            {
+              day: 'Qui',
+              fromTime: '07:00',
+              tillTime: '17:00',
+              weekDay: 4,
+            },
+            {
+              day: 'Sex',
+              fromTime: '07:00',
+              tillTime: '17:00',
+              weekDay: 5,
+            },
+            {
+              day: 'Sab',
+              fromTime: '07:00',
+              tillTime: '17:00',
+              weekDay: 6,
+            },
+          ]
+        }
+      }
     }
   })
 
@@ -49,6 +97,10 @@ export async function SettingsAction(previousState: any, formData: FormData) {
     schema: settingsSchema
   })
 
+  if (!session) {
+    return redirect("/dashboard")
+  }
+
   if (submission.status !== 'success') {
     return submission.reply()
   }
@@ -60,47 +112,6 @@ export async function SettingsAction(previousState: any, formData: FormData) {
     data: {
       name: submission.value.fullName ,
       image: submission.value.profileImage,
-      availability: {
-        createMany: {
-          data: [
-            {
-              day: 'Dom',
-              fromTime: '07:00',
-              tillTime: '17:00',
-            },
-            {
-              day: 'Seg',
-              fromTime: '07:00',
-              tillTime: '17:00',
-            },
-            {
-              day: 'Ter',
-              fromTime: '07:00',
-              tillTime: '17:00',
-            },
-            {
-              day: 'Qua',
-              fromTime: '07:00',
-              tillTime: '17:00',
-            },
-            {
-              day: 'Qui',
-              fromTime: '07:00',
-              tillTime: '17:00',
-            },
-            {
-              day: 'Sex',
-              fromTime: '07:00',
-              tillTime: '17:00',
-            },
-            {
-              day: 'Sab',
-              fromTime: '07:00',
-              tillTime: '17:00',
-            },
-          ]
-        }
-      }
     },
   })
 

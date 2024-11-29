@@ -42,13 +42,28 @@ async function getData(eventUrl: string, userName: string) {
 
 export default async function BookingFormRoute({
   params,
+  searchParams,
 }: {
   params: {
     userName: string; 
     eventUrl: string;
+  },
+  searchParams: {
+    date?: string
   }
 }) {
   const data = await getData(params.eventUrl, params.userName)
+
+  const selectedDate = searchParams.date 
+    ? new Date(searchParams.date) 
+    : new Date()
+
+  const formattedDate = new Intl.DateTimeFormat('pt-BR', {
+    weekday: 'long',
+    day: 'numeric',
+    month: 'short',
+    year: 'numeric',
+  }).format(selectedDate)
   
   return (
     <div className='min-h-screen w-screen flex items-center justify-center'>
@@ -70,7 +85,7 @@ export default async function BookingFormRoute({
               <p className='flex items-center'>
                 <CalendarX2Icon className='size-4 mr-2 text-primary'/>
                 <span className='text-sm font-medium text-muted-foreground'>
-                  23. Sep 2024
+                  {formattedDate}
                 </span>
               </p>
               <p className='flex items-center'>
@@ -90,6 +105,8 @@ export default async function BookingFormRoute({
           <Separator 
           orientation='vertical' />
           <RenderCalendar availability={data.User?.availability as any} />
+          <Separator 
+          orientation='vertical' />
         </CardContent>
       </Card>
       
