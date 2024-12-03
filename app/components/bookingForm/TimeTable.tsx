@@ -1,9 +1,10 @@
 import React from 'react'
-import { format } from 'date-fns'
+import { addMinutes, format, fromUnixTime, isAfter, isBefore, parse } from 'date-fns'
 import prisma from '@/app/lib/db'
 import { ptBR } from "date-fns/locale";
 import { Prisma } from '@prisma/client';
 import { nylas } from '@/app/lib/nylas';
+import { GetFreeBusyRequest, GetFreeBusyResponse, NylasResponse } from 'nylas';
 
 interface iAppProps {
   selectedDate: Date;
@@ -57,13 +58,74 @@ async function getData(username: string, selectedDate: Date) {
   }
 }
 
+function calculateAvailableTimeSlots(
+  date: string, 
+  dbAvailability: {
+    fromTime: string | undefined;
+    tillTime: string | undefined;
+  },
+  nylasData: NylasResponse<GetFreeBusyResponse[]>,
+  duration: number
+) {
+  const now = new Date()
+  const availableFrom = parse(
+    `${date} ${dbAvailability.fromTime}`, ' yyyy-MM-dd HH:mm', new Date()
+  )
+  const availableTill = parse(
+    `${date} ${dbAvailability.tillTime}`, 'yyyy-MM-dd HH:mm', new Date()
+  )
+
+  const busySlots = nylasData.data[0].timeSlots.map((slot) => (
+    {
+      start: fromUnixTime(slot.startTime),
+      end: fromUnixTime(slot.endTime)
+    }
+  ))
+
+  const allSlots = []
+  let currentSlot = availableFrom
+
+  while (isBefore(currentSlot, availableTill)) {
+    allSlots.push(currentSlot)
+    currentSlot = addMinutes(currentSlot, duration)
+  }
+
+  const freeSlots = allSlots.filter((slot) => {
+    const slotEnd = addMinutes(slot, duration)
+    return (
+      isAfter(slot, now) &&
+      !busySlots.some(
+        (busy: {start: any; end: any}) => 
+        (!isBefore(slot, busy.start) && isBefore(slot, busy.end)) ||
+        (isAfter(slot, busy.start) && !isAfter(slot, busy.end)) ||
+        (isBefore(slot, busy.start) && isAfter(slot, busy.end))
+      )
+    )
+  })
+
+  return freeSlots.map((slot) => format(slot, 'HH:mm'))
+} 
+
 export default async function TimeTable({
   selectedDate,
   username
 }: iAppProps) {
 
   const { data, nylasCalendarData} = await getData(username, selectedDate)
-  console.log(nylasCalendarData?.data[0]?.timeSlots);
+  const formattedDate = format(selectedDate, 'yyyy-MM-dd')
+  const dbAvailability = {
+    fromTime: data?.fromTime,
+    tillTime: data?.tillTime,
+  }
+  const availableSlots = calculateAvailableTimeSlots(
+    formattedDate,
+    dbAvailability,
+    nylasCalendarData,
+    15
+  )
+
+  console.log(availableSlots);
+  
   
 
   return (
@@ -75,6 +137,9 @@ export default async function TimeTable({
           {format(selectedDate, "MMM. d")}
         </span>
       </p>
+      <div className=''>
+
+      </div>
     </div>
   )
 }
