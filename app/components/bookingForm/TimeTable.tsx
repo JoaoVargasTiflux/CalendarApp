@@ -5,10 +5,13 @@ import { ptBR } from "date-fns/locale";
 import { Prisma } from '@prisma/client';
 import { nylas } from '@/app/lib/nylas';
 import { GetFreeBusyRequest, GetFreeBusyResponse, NylasResponse } from 'nylas';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
 
 interface iAppProps {
   selectedDate: Date;
   username: string;
+  duration: number;
 }
 
 async function getData(username: string, selectedDate: Date) {
@@ -69,7 +72,7 @@ function calculateAvailableTimeSlots(
 ) {
   const now = new Date()
   const availableFrom = parse(
-    `${date} ${dbAvailability.fromTime}`, ' yyyy-MM-dd HH:mm', new Date()
+    `${date} ${dbAvailability.fromTime}`, 'yyyy-MM-dd HH:mm', new Date()
   )
   const availableTill = parse(
     `${date} ${dbAvailability.tillTime}`, 'yyyy-MM-dd HH:mm', new Date()
@@ -86,6 +89,9 @@ function calculateAvailableTimeSlots(
   let currentSlot = availableFrom
 
   while (isBefore(currentSlot, availableTill)) {
+    console.log('currentSlot', currentSlot);
+    console.log('availableTill', availableTill);
+    
     allSlots.push(currentSlot)
     currentSlot = addMinutes(currentSlot, duration)
   }
@@ -97,18 +103,22 @@ function calculateAvailableTimeSlots(
       !busySlots.some(
         (busy: {start: any; end: any}) => 
         (!isBefore(slot, busy.start) && isBefore(slot, busy.end)) ||
-        (isAfter(slot, busy.start) && !isAfter(slot, busy.end)) ||
-        (isBefore(slot, busy.start) && isAfter(slot, busy.end))
+        (isAfter(slotEnd, busy.start) && !isAfter(slotEnd, busy.end)) ||
+        (isBefore(slot, busy.start) && isAfter(slotEnd, busy.end))
       )
     )
   })
+
+  console.log('freeSlots', freeSlots);
+  
 
   return freeSlots.map((slot) => format(slot, 'HH:mm'))
 } 
 
 export default async function TimeTable({
   selectedDate,
-  username
+  username,
+  duration
 }: iAppProps) {
 
   const { data, nylasCalendarData} = await getData(username, selectedDate)
@@ -121,11 +131,8 @@ export default async function TimeTable({
     formattedDate,
     dbAvailability,
     nylasCalendarData,
-    15
+    duration
   )
-
-  console.log(availableSlots);
-  
   
 
   return (
@@ -137,8 +144,24 @@ export default async function TimeTable({
           {format(selectedDate, "MMM. d")}
         </span>
       </p>
-      <div className=''>
 
+      <div className='mt-3 max-h-[350px] overflow-auto'>
+        {
+          availableSlots.length > 0
+          ? (
+            availableSlots.map((slot, index) => (
+              <Link key={index} href={`?date=${format(selectedDate, 'yyyy-MM-dd')}&time=${slot}`} >
+                <Button className='w-full mb-2' variant='outline'>
+                  {slot}
+                </Button>
+              </Link>
+            ))
+          ) : (
+            <p>
+              no available 
+            </p>
+          )
+        }
       </div>
     </div>
   )
