@@ -1,3 +1,4 @@
+import { createMeetingAction } from '@/app/action'
 import RenderCalendar from '@/app/components/bookingForm/RenderCalendar'
 import TimeTable from '@/app/components/bookingForm/TimeTable'
 import { SubmitButton } from '@/app/components/SubmitButtons'
@@ -113,14 +114,46 @@ export default async function BookingFormRoute({
             </div>
             <Separator 
             orientation='vertical' />
-            <form className='flex flex-col gap-y-4 justify-center' action="">
+            <form 
+            className='flex flex-col gap-y-4 justify-center' 
+            action={createMeetingAction}>
+              <Input 
+              type='hidden'
+              name='fromTime'
+              value={searchParams.time}/>
+              <Input 
+              type='hidden'
+              name='eventDate'
+              value={searchParams.date}/>
+              <Input 
+              type='hidden'
+              name='meetingLength'
+              value={data.duration}/>
+              <Input 
+              type='hidden'
+              name='provider'
+              value={data.videoCallSoftware}/>
+              <Input 
+              type='hidden'
+              name='username'
+              value={params.userName}/>
+              <Input 
+              type='hidden'
+              name='eventTypeId'
+              value={data.id}/>
               <div className='flex flex-col gap-y-2'>
                 <Label>Your name</Label>
-                <Input placeholder='Jonh Doe'/>
+                <Input 
+                name='name' 
+                placeholder='Jonh Doe'
+                />
               </div>
               <div className='flex flex-col gap-y-2'>
                 <Label>Your email</Label>
-                <Input placeholder='jonhdoe@email.com'/>
+                <Input 
+                name='email' 
+                placeholder='jonhdoe@email.com'
+                />
               </div>
               <SubmitButton text='Book meeting' className='w-full mt-5'/>
             </form>

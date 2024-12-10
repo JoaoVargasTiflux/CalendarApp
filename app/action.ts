@@ -181,7 +181,7 @@ export async function createEventTypeAction(previousState: any, formData: FormDa
   return redirect('/dashboard') 
 }
 
-export async function CreatemeatingAction(previousState: any, formData: FormData) {
+export async function createMeetingAction(formData: FormData) {
   const getUserData = await prisma.user.findUnique({
     where: {
       userName: formData.get('username') as string,
@@ -241,4 +241,6 @@ export async function CreatemeatingAction(previousState: any, formData: FormData
       notifyParticipants: true,
     }
   })
+
+  return redirect('/success')
 }
