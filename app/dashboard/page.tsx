@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { ExternalLinkIcon, Link2Icon, PenIcon, SettingsIcon, TrashIcon, Users2 } from "lucide-react";
 import { Switch } from "@/components/ui/switch";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import CopyLinkMenuItem from "../components/CopyLinkMenu";
 
 async function getData(userId: string) {
   const data = await prisma.user.findUnique({
@@ -81,10 +82,7 @@ export default async function DashboardPage(){
                               Preview
                             </Link>
                           </DropdownMenuItem>
-                          <DropdownMenuItem>
-                            <Link2Icon className="mr-2 size-4"/>
-                            Copy
-                          </DropdownMenuItem>
+                          <CopyLinkMenuItem meetingUrl={`${process.env.NEXT_PUBLIC_URL}/${data.userName}/${item.url}`} />
                           <DropdownMenuItem>
                             <PenIcon className="mr-2 size-4"/>
                             Edit
