@@ -83,9 +83,11 @@ export default async function DashboardPage(){
                             </Link>
                           </DropdownMenuItem>
                           <CopyLinkMenuItem meetingUrl={`${process.env.NEXT_PUBLIC_URL}/${data.userName}/${item.url}`} />
-                          <DropdownMenuItem>
-                            <PenIcon className="mr-2 size-4"/>
-                            Edit
+                          <DropdownMenuItem asChild>
+                            <Link href={`dashboard/event/${item.id}`}>
+                              <PenIcon className="mr-2 size-4"/>
+                              Edit
+                            </Link>
                           </DropdownMenuItem>
                         </DropdownMenuGroup>
                         <DropdownMenuSeparator />
