@@ -7,7 +7,7 @@ import Link from 'next/link'
 import { useForm } from '@conform-to/react'
 import { parseWithZod } from '@conform-to/zod'
 
-import { createEventTypeAction } from '../action'
+import { EditEventTypeAction } from '../action'
 import { eventSchema } from '../lib/zodSchemas'
 
 import { 
@@ -54,8 +54,8 @@ export default function EditEventForm({
   callProvider
 }: iAppProps
 ) {
-  const [ activePlatform, setActivePlatform ] = useState<VideoCallProvider>("Google Meet")
-  const [ lastResult, action ] = useFormState(createEventTypeAction, undefined)
+  const [ activePlatform, setActivePlatform ] = useState<VideoCallProvider>(callProvider as VideoCallProvider)
+  const [ lastResult, action ] = useFormState(EditEventTypeAction, undefined)
   const [ form, fields ] = useForm({
     lastResult,
     onValidate({formData}) {
@@ -72,7 +72,7 @@ export default function EditEventForm({
       <Card>
         <CardHeader>
           <CardTitle>
-            Criar novo event type
+            Editar event type
           </CardTitle>
           <CardDescription>
             let people book you
@@ -83,13 +83,17 @@ export default function EditEventForm({
         onSubmit={form.onSubmit}
         action={action}
         noValidate>
+          <Input 
+          type='hidden' 
+          name='id'
+          value={id}/>
           <CardContent className='grid gap-y-2'>
             <div className='flex flex-col gap-y-2'>
               <Label>Title</Label>
               <Input 
               name={fields.title.name}
               key={fields.title.key}
-              defaultValue={fields.title.initialValue}
+              defaultValue={title}
               placeholder='30min meeting'/>
               <p className='text-red-500 text-sm'>{fields.title.errors}</p>
             </div>
@@ -100,7 +104,7 @@ export default function EditEventForm({
                 <Input 
                 name={fields.url.name}
                 key={fields.url.key}
-                defaultValue={fields.url.initialValue}
+                defaultValue={url}
                 placeholder='event-url' className='rounded-l-none'/>
               </div>
               <p className='text-red-500 text-sm'>{fields.url.errors}</p>
@@ -110,7 +114,7 @@ export default function EditEventForm({
               <Textarea 
               name={fields.description.name}
               key={fields.description.key}
-              defaultValue={fields.description.initialValue}
+              defaultValue={description}
               placeholder='Meet me in this meeting'/>
             </div>
             <p className='text-red-500 text-sm'>{fields.description.errors}</p>
@@ -119,7 +123,7 @@ export default function EditEventForm({
               <Select
                 name={fields.duration.name}
                 key={fields.duration.key}
-                defaultValue={fields.duration.initialValue}>
+                defaultValue={String(duration)}>
                 <SelectTrigger>
                   <SelectValue placeholder='Select duration'/>
                 </SelectTrigger>
@@ -187,7 +191,7 @@ export default function EditEventForm({
             <Button variant='secondary' asChild>
               <Link href='/dashboard'>Cancel</Link>
             </Button>
-            <SubmitButton text='Create'/>
+            <SubmitButton text='Edit'/>
           </CardFooter>
         </form>
       </Card>
