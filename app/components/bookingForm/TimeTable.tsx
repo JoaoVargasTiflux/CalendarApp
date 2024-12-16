@@ -89,9 +89,6 @@ function calculateAvailableTimeSlots(
   let currentSlot = availableFrom
 
   while (isBefore(currentSlot, availableTill)) {
-    console.log('currentSlot', currentSlot);
-    console.log('availableTill', availableTill);
-    
     allSlots.push(currentSlot)
     currentSlot = addMinutes(currentSlot, duration)
   }
@@ -108,9 +105,6 @@ function calculateAvailableTimeSlots(
       )
     )
   })
-
-  console.log('freeSlots', freeSlots);
-  
 
   return freeSlots.map((slot) => format(slot, 'HH:mm'))
 } 

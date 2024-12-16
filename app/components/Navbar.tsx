@@ -4,6 +4,7 @@ import React from 'react'
 
 import Logo from '@/public/shresus_2.png'
 import AuthModal from './AuthModal'
+import { ThemeToggle } from './ThemeToggle'
 
 export default function Navbar() {
   return (
@@ -14,7 +15,10 @@ export default function Navbar() {
           Calen<span >dinho</span>
         </h4>
       </Link>
-      <AuthModal />
+      <div className='flex items-center gap-4'>
+        <ThemeToggle />
+        <AuthModal />
+      </div>
     </div>
   )
 }

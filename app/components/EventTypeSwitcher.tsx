@@ -20,10 +20,13 @@ export default function MenuActiveSwitcher({
     if (state?.status === 'success') {
       toast.success(state?.message)
       return
-    } 
+    }
+    
+    if (state?.message === 'error') {
+      toast.error(state?.message)
+      console.error(state?.message)      
+    }
 
-
-    toast.error(state?.message)
   }, [ state ])
   
 

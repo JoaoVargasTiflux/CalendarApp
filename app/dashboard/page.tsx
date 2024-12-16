@@ -101,7 +101,7 @@ export default async function DashboardPage(){
                       </DropdownMenuContent>
                     </DropdownMenu>
                   </div>
-                  <Link href='/' className="flex items-center p-5">
+                  <Link href={`/${data.userName}/${item.url}`} className="flex items-center p-5">
                     <div className="flex-shrink-0">
                       <Users2 className="size-6"/>
                     </div>
