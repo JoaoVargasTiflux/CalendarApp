@@ -11,7 +11,7 @@ import { GoogleAuthButton, GithubAuthButton } from './SubmitButtons'
 export default function AuthModal() {
   return (
     <Dialog>
-      <DialogTrigger>
+      <DialogTrigger asChild>
         <Button>Modal de Login</Button>
       </DialogTrigger>
       <DialogContent className='sm:max-w-[360px]'>
