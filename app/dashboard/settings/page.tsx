@@ -16,10 +16,6 @@ async function getData(id: string) {
     },
   })
 
-  // if (!data) {
-  //   return notFound()
-  // }
-
   return data ? data : notFound()
 }
 

@@ -23,8 +23,7 @@ export default function Calendar(props: CalendarProps<DateValue> & {
   const {
     calendarProps,
     prevButtonProps,
-    nextButtonProps,
-    title
+    nextButtonProps
   } = useCalendar(props, state);
 
 

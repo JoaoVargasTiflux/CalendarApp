@@ -16,7 +16,11 @@ export default function AuthModal() {
       </DialogTrigger>
       <DialogContent className='sm:max-w-[360px]'>
         <DialogHeader className='flex w-100 justify-center items-center'>
-          <Image src={Logo} alt='Logo' className='size-[60px]'/>
+          <Image 
+          src={Logo} 
+          alt='Logo' 
+          className='size-[60px]'
+          width={undefined}/>
         </DialogHeader>
         <div className="flex flex-col mt-5 gap-3">
           <form action={async () => {

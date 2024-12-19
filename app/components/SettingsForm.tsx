@@ -14,6 +14,7 @@ import { Button } from '@/components/ui/button'
 import { X } from 'lucide-react'
 import { UploadDropzone } from '../lib/uploadthing'
 import { toast } from 'sonner'
+import Image from 'next/image'
 
 interface iAppProps {
   fullName: string,
@@ -90,9 +91,11 @@ export function SettingsForm({email, fullName, profileImage}: iAppProps) {
               currentProfileImage
               ? (
                 <div className='relative size-20'>
-                  <img 
+                  <Image 
                   src={currentProfileImage} 
                   alt="Profile image"
+                  width={80}
+                  height={80}
                   className='size-20 rounded-lg' />
 
                   <Button 
@@ -122,7 +125,7 @@ export function SettingsForm({email, fullName, profileImage}: iAppProps) {
           </div>
         </CardContent>
         <CardFooter>
-          <SubmitButton text='Save'/>
+          <SubmitButton className='w-full' text='Save'/>
         </CardFooter>
       </form>
     </Card>

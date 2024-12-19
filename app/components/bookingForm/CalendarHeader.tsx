@@ -24,7 +24,7 @@ export default function CalendarHeader({
     timeZone: state.timeZone,
   })
 
-  const [ monthName, _, year, hour ] = monthDateFormatter
+  const [ monthName, _, year ] = monthDateFormatter
     .formatToParts(state.visibleRange.start.toDate(state.timeZone))
     .map((part) => part.value)
 

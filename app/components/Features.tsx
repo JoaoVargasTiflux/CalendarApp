@@ -37,7 +37,7 @@ export default function Features() {
           Schedule meeting in hours
         </h1>
         <p className='mt-6 text-base leading-snug text-muted-foreground'>
-          With Calendinho you can stop. Yeah you read right. You may be able  to finally stop, huh. This prolonged death has taken too much time already dont you think? You can close your eyes now. I'll allow it. Good night.
+          {`With Calendinho you can stop. Yeah you read right. You may be able  to finally stop, huh. This prolonged death has taken too much time already dont you think? You can close your eyes now. I'll allow it. Good night.`}
         </p>
 
         <div className='mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-4xl'>

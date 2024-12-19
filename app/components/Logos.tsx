@@ -14,16 +14,46 @@ export default function Logos() {
       </h2>
 
       <div className='mt-10 grid max-w-lg mx-auto grid-cols-4 items-center gabpx8  gap-y-10 sm:max-w-xl sm:grid-cols-6 sm:gap-x-10 lg:mx-0 lg:max-w-none lg:grid-cols-5'>
-        <Image src={Logo1}/>
-        <Image src={Logo2}/>
-        <Image src={Logo3}/>
-        <Image src={Logo4}/>
-        <Image src={Logo1}/>
-        <Image src={Logo2}/>
-        <Image src={Logo3}/>
-        <Image src={Logo4}/>
-        <Image src={Logo1}/>
-        <Image src={Logo2}/>
+        <Image 
+        src={Logo1} 
+        alt='Logo1'
+        width={undefined}/>
+        <Image 
+        src={Logo2} 
+        alt='Logo2'
+        width={undefined}/>
+        <Image 
+        src={Logo3} 
+        alt='Logo3'
+        width={undefined}/>
+        <Image 
+        src={Logo4} 
+        alt='Logo4'
+        width={undefined}/>
+        <Image 
+        src={Logo1} 
+        alt='Logo1'
+        width={undefined}/>
+        <Image 
+        src={Logo2} 
+        alt='Logo2'
+        width={undefined}/>
+        <Image 
+        src={Logo3} 
+        alt='Logo3'
+        width={undefined}/>
+        <Image 
+        src={Logo4} 
+        alt='Logo4'
+        width={undefined}/>
+        <Image 
+        src={Logo1} 
+        alt='Logo1'
+        width={undefined}/>
+        <Image 
+        src={Logo2} 
+        alt='Logo2'
+        width={undefined}/>
       </div>
     </div>
   )

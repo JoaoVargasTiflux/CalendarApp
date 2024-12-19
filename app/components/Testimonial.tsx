@@ -10,7 +10,7 @@ export default function Testimonial() {
         <p className='relative text-xl sm:text-2xl md:text-3xl md:leading-normal font-medium'>
           <LeftQuoteIcon className="absolute top-0 start-0 transform -translate-x-8 -translate-y-8 size-16 text-muted sm:h-24 sm:w-24" />
           <span className='relative z-10'>
-            Once upon a time there was a lovely 
+            {`Once upon a time there was a lovely 
             princess. But she had an enchantment 
             upon her of a fearful sort which could 
             only be broken by love's first kiss. 
@@ -23,7 +23,7 @@ export default function Testimonial() {
             the tallest tower for her true love 
             and true love's first kiss. (laughs) 
             Like that's ever gonna happen. What 
-            a load of - (toilet flush)
+            a load of - (toilet flush)`}
           </span>
         </p>
         <footer className='mt-6'>

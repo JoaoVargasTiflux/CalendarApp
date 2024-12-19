@@ -4,7 +4,7 @@ import prisma from '@/app/lib/db'
 import { ptBR } from "date-fns/locale";
 import { Prisma } from '@prisma/client';
 import { nylas } from '@/app/lib/nylas';
-import { GetFreeBusyRequest, GetFreeBusyResponse, NylasResponse } from 'nylas';
+import { GetFreeBusyResponse, NylasResponse } from 'nylas';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 

@@ -24,7 +24,11 @@ export default function Hero() {
           <div className="w-full h-full bg-gradient-to-l from-background via-amber-600/50 to-background">
           </div>
         </div>
-        <Image className='relative object-cover w-full border rounded-lg shadow-2xl lg:rounded-2xl' src={HeroImage} alt='Hero image'/>
+        <Image 
+        className='relative object-cover w-full border rounded-lg shadow-2xl lg:rounded-2xl' 
+        src={HeroImage} 
+        alt='Hero image'
+        width={undefined}/>
       </div>
     </section>
   )
